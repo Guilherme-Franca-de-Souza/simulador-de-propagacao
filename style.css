@@ -1,0 +1,58 @@
+
+#configdiv{
+    float: left;
+}
+#canvasdiv{
+    width:100%;
+    margin-bottom:10px;
+    margin-top:10px;
+}
+
+p{
+    color: red;
+    position: statitc;
+}
+#population{
+    margin-top: 0px;
+}
+
+#p1{
+    margin-right: 0px;
+}
+
+#p2{
+    margin-right: 0px;
+}
+
+#p3{
+    margin-right: 0px;
+    margin-bottom: 0px;
+}
+
+body{
+    margin:0%;
+}
+
+canvas{
+    margin: 1px;
+    background-color:gray;
+    text-align:center;
+    display: block;
+    margin:auto;
+    
+}
+
+#div{
+    float:left;
+    background-color:black;
+    width:20%;
+    color:white;
+    margin-left:10px;
+}
+
+#container{
+    background-color:gray;
+    width:100%;
+    margin-top:0;
+    height: 100%;
+}
