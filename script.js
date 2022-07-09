@@ -60,13 +60,14 @@ function direction(){
 }
 
 
-function Particle(x, y, rai){
+function Particle(x, y, rai, movel){
     this.sick = false;
     this.alive = true;
     this.imune = false;
     this.x = x;
     this.y = y;
-    this.rai = rai
+    this.rai = rai;
+    this.movel = movel;
     this.sx = direction();
     this.sy = direction();
     this.color = "cyan"
@@ -142,7 +143,7 @@ function Particle(x, y, rai){
             }
         }
         
-        if(this.alive){
+        if(this.alive && this.movel){
             this.chandir()
             this.n++
             this.x += this.sx; // é aqui que ele anda, a proxima posição dele vai ser definida aqui
@@ -166,6 +167,15 @@ var aparticles = [];
 
 var n = 0;
 
+function pmovel(){
+    var p = Math.random()
+    if(p>0.9){
+        return false
+    }else{
+        return true
+    }
+}
+
 while(n < 1000){ 
     var rai = 1;
     var x = randrange(rai, width - (rai))
@@ -178,11 +188,12 @@ while(n < 1000){
             }            
         }
         if(ok == true){
-            aparticles.push(new Particle(x, y, rai))
+            movel = pmovel()
+            aparticles.push(new Particle(x, y, rai, movel))
             n++
         }
     }else{
-        aparticles.push(new Particle(x, y, rai))
+        aparticles.push(new Particle(x, y, rai, true))
         n++
     }  
 
