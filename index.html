@@ -5,10 +5,10 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="style.css">
-        <script src="script.js"></script> 
+        <script src="script.js" defer></script> 
           
     </head>
-    <body onload="jscript();">
+    <body>
         <div id="canvasdiv">
             <canvas id="c1"></canvas> 
         </div>
@@ -20,9 +20,11 @@
                 <p id="p3" ></p>
             </div>
             <div id="div2">
-                <input type="number" min="0" max="100" id="tm">
-                <p id="pt" >
-                <p id="tr" >
+                <label> Taxa de mortalidade</label><input type="number" min="0" max="100" id="tm" value="10">%<br>
+                <label> Probabilidade de transmissão</label><input type="number" min="0" max="100" id="pt" value="100">%<br>
+                <label> tempo de recuperação</label><input type="number" min="0" max="100" id="tr" value="300"><br>
+                <label> População em quarentena</label><input type="number" min="0" max="100" id="pq" value="10"><br>
+                <input type="button" id="button" onclick="start();" value="START">
             </div>
         </div>
     </body>
