@@ -17,9 +17,9 @@ var doentes = 0;
 var recuperados = 0;
 var mortos = 0;
 function painel(){
-    p1.innerHTML = "SICK: "+doentes;
-    p2.innerHTML = "RECOVERED: "+recuperados;
-    p3.innerHTML = "DEAD: "+mortos;
+    p1.innerHTML = "DOENTES: "+doentes;
+    p2.innerHTML = "RECUPERADOS: "+recuperados;
+    p3.innerHTML = "MORTOS: "+mortos;
 } 
 painel();
 
@@ -49,6 +49,7 @@ function start(){
         document.getElementById("pt").disabled = false;
         document.getElementById("tr").disabled = false;
         document.getElementById("pq").disabled = false;
+        document.getElementById("pp").disabled = false;
     }else{
         jscript();
         document.getElementById("button").value = "STOP";
@@ -56,12 +57,24 @@ function start(){
         document.getElementById("pt").disabled = true;
         document.getElementById("tr").disabled = true;
         document.getElementById("pq").disabled = true;
+        document.getElementById("pp").disabled = true;
     }
 
 }
 
 
 function jscript(){
+
+    var pp = document.getElementById("pp").value;
+
+    document.getElementById("populacao").innerHTML= "POPULACAO: "+pp;
+    // seta as variaveis aqui
+    var tm = document.getElementById("tm").value;
+    var pt = document.getElementById("pt").value;
+    var tr = document.getElementById("tr").value;
+    var pq = document.getElementById("pq").value;
+
+
     var aparticles = [];
     doentes = 0;
     recuperados = 0;
@@ -102,7 +115,9 @@ function jscript(){
         }
         
         this.getsick = function(){
-            if(this.imune == false){
+            var ppt = randrange(0,100);
+            if(this.imune == false && ppt < pt){
+                console.log(ppt);
                 this.sick = true;
                 this.color = "Magenta";
                 this.imune = true;
@@ -124,7 +139,7 @@ function jscript(){
         
         
         this.update = Particle => { 
-            if(this.time < 300){
+            if(this.time < tr){
                 this.time = this.time + this.count // time é um contador, pra particula doente
                 // count, quando a particula é saudável, é zero, quando doente é 1
                 // ao final do time, a particula morre ou se recupera
@@ -132,8 +147,8 @@ function jscript(){
             }else{
                 this.count = 0;
                 this.time = 0;
-                var tm = randrange(0, 200);
-                if(tm < 20){
+                var pm = randrange(0, 100);
+                if(pm < tm){
                     this.alive = false;
                     this.color = "black";
                     this.sick = false;
@@ -151,7 +166,7 @@ function jscript(){
             
             this.draw();
             
-            for(i=0;i<1000;i++){
+            for(i=0;i<pp;i++){
                 if(this === aparticles[i]) continue; 
                 // "continue" termina a atual iteração, ou seja, nao comára ele com ele mesmo
                 if(distance(this.x, aparticles[i].x, this.y, aparticles[i].y) - 5 * 2 < 0){
@@ -187,15 +202,15 @@ function jscript(){
     var n = 0;
 
     function pmovel(){
-        var p = Math.random();
-        if(p>0.99){
+        var p = randrange(0,100);
+        if(p<pq){
             return false;
         }else{
             return true;
         }
     }
 
-    while(n < 1000){ 
+    while(n < pp){ 
         var rai = 1;
         var x = randrange(rai, width - (rai));
         var y = randrange(rai, height - (rai));
@@ -232,7 +247,12 @@ function jscript(){
     }
 
     // seta a primeira particula como doente, o caso 0
-    aparticles[1].getsick();
+    aparticles[1].sick = true;
+    aparticles[1].color = "Magenta";
+    aparticles[1].imune = true;
+    aparticles[1].count = 1;
+    doentes += 1;
+    painel();
 
     animate();
     

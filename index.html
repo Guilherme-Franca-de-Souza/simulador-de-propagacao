@@ -14,16 +14,38 @@
         </div>
         <div id = "container">
             <div id="div">
-                <p id="population">POPULATION: 1000</p>
+                <p id="populacao">POPULAÇÃO: 1000</p>
                 <p id="p1" ></p>
                 <p id="p2" ></p>
                 <p id="p3" ></p>
             </div>
             <div id="div2">
-                <label> Taxa de mortalidade</label><input type="number" min="0" max="100" id="tm" value="10">%<br>
-                <label> Probabilidade de transmissão</label><input type="number" min="0" max="100" id="pt" value="100">%<br>
-                <label> tempo de recuperação</label><input type="number" min="0" max="100" id="tr" value="300"><br>
-                <label> População em quarentena</label><input type="number" min="0" max="100" id="pq" value="10"><br>
+                <table border="1">
+                    <tr>
+                        <td>
+                            <label> População: </label><input type="number" min="2" max="1000" id="pp" value="1000">
+                        </td>
+                        <td>
+                            <label> Taxa de mortalidade: </label><input type="number" min="0" max="100" id="tm" value="10">%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label> Probabilidade de transmissão: </label><input type="number" min="0" max="100" id="pt" value="100">%
+                        </td>
+                        <td>
+                            <label> Doentes em quarentena: </label><input type="number" min="0" max="100" id="dq" value="10">%
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <label> População em quarentena: </label><input type="number" min="0" max="100" id="pq" value="10">%
+                        </td>
+                        <td>
+                            <label> tempo da doença: </label><input type="number" min="0" max="100" id="tr" value="300"> pixels de movimento<br>
+                        </td>
+                    </tr>
+                </table>  
                 <input type="button" id="button" onclick="start();" value="START">
             </div>
         </div>
