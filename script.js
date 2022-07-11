@@ -49,6 +49,7 @@ function start(){
         document.getElementById("pt").disabled = false;
         document.getElementById("tr").disabled = false;
         document.getElementById("pq").disabled = false;
+        document.getElementById("dq").disabled = false;
         document.getElementById("pp").disabled = false;
     }else{
         jscript();
@@ -57,6 +58,7 @@ function start(){
         document.getElementById("pt").disabled = true;
         document.getElementById("tr").disabled = true;
         document.getElementById("pq").disabled = true;
+        document.getElementById("dq").disabled = true;
         document.getElementById("pp").disabled = true;
     }
 
@@ -65,6 +67,8 @@ function start(){
 
 function jscript(){
 
+
+    var dq = document.getElementById("dq").value;
     var pp = document.getElementById("pp").value;
 
     document.getElementById("populacao").innerHTML= "POPULACAO: "+pp;
@@ -117,6 +121,10 @@ function jscript(){
         this.getsick = function(){
             var ppt = randrange(0,100);
             if(this.imune == false && ppt < pt){
+                var pdq = randrange(0,100);
+                if(pdq < dq){
+                    this.movel = false;
+                }
                 console.log(ppt);
                 this.sick = true;
                 this.color = "Magenta";
@@ -247,6 +255,10 @@ function jscript(){
     }
 
     // seta a primeira particula como doente, o caso 0
+    var pdq = randrange(0,100);
+    if(pdq < dq){
+        aparticles[1].movel = false;
+    }
     aparticles[1].sick = true;
     aparticles[1].color = "Magenta";
     aparticles[1].imune = true;
