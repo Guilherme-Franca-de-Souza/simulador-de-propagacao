@@ -28,7 +28,7 @@ function startcanvas(){
     var canvas = document.getElementById("c1"); 
     width = window.innerWidth * 0.98;
     canvas.width = width;
-    height = window.innerHeight * 0.75;
+    height = window.innerHeight * 0.65;
     canvas.height = height;
     div = document.getElementById("container")
     div.style.height = ((window.innerHeight * 0.20)+"px")
@@ -36,6 +36,60 @@ function startcanvas(){
     return c;
 }
 var c = startcanvas();
+
+
+// INICIO DA PARTE DEDICADA AOS GRAFICOS
+
+function startgrafico(){
+    var ctx = document.getElementById("c2"); 
+    widt = window.innerWidth * 0.98;
+    ctx.width = widt;
+    heigh = window.innerHeight * 0.50;
+    ctx.height = heigh;
+    var ctx = ctx.getContext('2d');
+    return ctx
+}
+    
+var bars = [];
+maior = 0
+    
+var ctx = startgrafico();
+
+function nb(value){
+
+    ctx.clearRect(0, 0, innerWidth, innerHeight);
+
+    function bar(x,y,w,h){
+        ctx.beginPath();
+        ctx.fillStyle = "black";
+        ctx.fillRect(x,y,w,h);
+    }
+
+    bars.push(value)
+    console.log(value)
+    if(value > maior){
+        maior = value;
+    };
+    
+    
+    x = 1
+    for(i=0;i<bars.length;i++){
+        altura = window.innerHeight * 0.50;
+        if(bars[i] == maior){
+            h = altura
+        }else{
+            h = (bars[i]*altura)/maior
+        }
+        y = altura - h;
+
+        w = ((window.innerWidth * 0.98)/bars.length);
+        bar(x,y,w,h);
+        x = x + w;
+    }
+    
+}
+
+// FIM DA PARTE DEDICADA AOS GRAFICOS
 
 
 
@@ -52,6 +106,9 @@ function start(){
         document.getElementById("dq").disabled = false;
         document.getElementById("pp").disabled = false;
     }else{
+        ctx.clearRect(0, 0, innerWidth, innerHeight);
+        bars = [];
+        maior = 0
         jscript();
         document.getElementById("button").value = "STOP";
         document.getElementById("tm").disabled = true;
@@ -162,7 +219,9 @@ function jscript(){
                     this.sick = false;
                     mortos += 1;
                     doentes -= 1;
+                    painel();
                 }else{
+                    this.movel = true;
                     this.sick = false;
                     this.color = "yellow";
                     recuperados += 1;
@@ -243,9 +302,15 @@ function jscript(){
 
     running = true;
     // frames dos movimentos
+    tempodografico = 1
     function animate(){
         if(running == true){
             requestAnimationFrame(animate);
+            tempodografico = tempodografico + 1
+            if(tempodografico > 9){
+                nb(doentes);
+                tempodografico = 1
+            }
             c.clearRect(0, 0, innerWidth , innerHeight); // limpa todo o canvas
             aparticles.forEach(Particle => {Particle.update(aparticles)}); // atualiza os dados de cada particula
         }else{
@@ -265,8 +330,10 @@ function jscript(){
     aparticles[1].count = 1;
     doentes += 1;
     painel();
+    nb(doentes);
 
     animate();
     
     return 0;
-}; 
+}
+
