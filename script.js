@@ -50,43 +50,70 @@ function startgrafico(){
     return ctx
 }
     
-var bars = [];
+var doentesbars = [];
+var recuperadosbars = [];
+var mortosbars = [];
 maior = 0
     
 var ctx = startgrafico();
 
-function nb(value){
+function nb(doentesn, recuperadosn, mortosn){
+
+    pp = document.getElementById("pp").value;
 
     ctx.clearRect(0, 0, innerWidth, innerHeight);
 
-    function bar(x,y,w,h){
+    function bardoentes(x,y,w,h){
+        ctx.beginPath();
+        ctx.fillStyle = "red";
+        ctx.fillRect(x,y,w,h);
+    }
+    function barrecuperados(x,y,w,h){
+        ctx.beginPath();
+        ctx.fillStyle = "yellow";
+        ctx.fillRect(x,y,w,h);
+    }
+    function barmortos(x,y,w,h){
         ctx.beginPath();
         ctx.fillStyle = "black";
         ctx.fillRect(x,y,w,h);
     }
 
-    bars.push(value)
-    console.log(value)
-    if(value > maior){
-        maior = value;
-    };
-    
-    
-    x = 1
-    for(i=0;i<bars.length;i++){
-        altura = window.innerHeight * 0.50;
-        if(bars[i] == maior){
-            h = altura
-        }else{
-            h = (bars[i]*altura)/maior
-        }
-        y = altura - h;
+    doentesbars.push(doentesn);
+    recuperadosbars.push(recuperadosn);
+    mortosbars.push(mortosn);
 
-        w = ((window.innerWidth * 0.98)/bars.length);
-        bar(x,y,w,h);
+ 
+    x = 1
+    for(i=0;i<doentesbars.length;i++){
+        altura = window.innerHeight * 0.50;
+        h = (doentesbars[i]*altura)/pp
+        y = altura - h;
+        w = ((window.innerWidth * 0.98)/doentesbars.length);
+        bardoentes(x,y,w,h);
+        x = x + w;
+    }
+
+    x = 1
+    for(i=0;i<mortosbars.length;i++){
+        altura = window.innerHeight * 0.50;
+        h = (mortosbars[i]*altura)/pp
+        w = ((window.innerWidth * 0.98)/mortosbars.length);
+        barmortos(x,0,w,h);
         x = x + w;
     }
     
+    x = 1
+    for(i=0;i<recuperadosbars.length;i++){
+        altura = window.innerHeight * 0.50;
+        h = (recuperadosbars[i]*altura)/pp
+        w = ((window.innerWidth * 0.98)/recuperadosbars.length);
+        y = (mortosbars[i]*altura)/pp
+        barrecuperados(x,y,w,h);
+        x = x + w;
+    }
+
+   
 }
 
 // FIM DA PARTE DEDICADA AOS GRAFICOS
@@ -107,7 +134,9 @@ function start(){
         document.getElementById("pp").disabled = false;
     }else{
         ctx.clearRect(0, 0, innerWidth, innerHeight);
-        bars = [];
+        doentesbars = [];
+        recuperadosbars = [];
+        mortosbars = [];
         maior = 0
         jscript();
         document.getElementById("button").value = "STOP";
@@ -236,7 +265,7 @@ function jscript(){
             for(i=0;i<pp;i++){
                 if(this === aparticles[i]) continue; 
                 // "continue" termina a atual iteração, ou seja, nao comára ele com ele mesmo
-                if(distance(this.x, aparticles[i].x, this.y, aparticles[i].y) - 5 * 2 < 0){
+                if(distance(this.x, aparticles[i].x, this.y, aparticles[i].y) - 10 * 2 < 0){
                     // verifica se colidiu com a particula, e se ela tiver doente, transmite
                     if(aparticles[i].sick == true){
                         this.getsick();
@@ -278,7 +307,7 @@ function jscript(){
     }
 
     while(n < pp){ 
-        var rai = 1;
+        var rai = 10;
         var x = randrange(rai, width - (rai));
         var y = randrange(rai, height - (rai));
         if(n != 0){
@@ -302,15 +331,17 @@ function jscript(){
 
     running = true;
     // frames dos movimentos
-    tempodografico = 1
+    //tempodografico = 1
     function animate(){
         if(running == true){
             requestAnimationFrame(animate);
-            tempodografico = tempodografico + 1
-            if(tempodografico > 9){
-                nb(doentes);
-                tempodografico = 1
-            }
+            //tempodografico = tempodografico + 1
+            //if(tempodografico > 9){
+                if(doentes > 1){
+                    nb(doentes, recuperados, mortos);
+                }
+            //    tempodografico = 1
+            //}
             c.clearRect(0, 0, innerWidth , innerHeight); // limpa todo o canvas
             aparticles.forEach(Particle => {Particle.update(aparticles)}); // atualiza os dados de cada particula
         }else{
