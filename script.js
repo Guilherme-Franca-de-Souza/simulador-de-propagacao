@@ -1,4 +1,4 @@
-
+﻿
 function distance(x1, x2, y1, y2){ // mede a distancia entre as esferas, verifica colisão
     xDistance = x2 - x1;
     yDistance = y2 - y1;
@@ -44,7 +44,7 @@ function startgrafico(){
     var ctx = document.getElementById("c2"); 
     widt = window.innerWidth * 0.98;
     ctx.width = widt;
-    heigh = window.innerHeight * 0.50;
+    heigh = window.innerHeight * 0.12;
     ctx.height = heigh;
     var ctx = ctx.getContext('2d');
     return ctx
@@ -86,7 +86,7 @@ function nb(doentesn, recuperadosn, mortosn){
  
     x = 1
     for(i=0;i<doentesbars.length;i++){
-        altura = window.innerHeight * 0.50;
+        altura = window.innerHeight * 0.12;
         h = (doentesbars[i]*altura)/pp
         y = altura - h;
         w = ((window.innerWidth * 0.98)/doentesbars.length);
@@ -96,7 +96,7 @@ function nb(doentesn, recuperadosn, mortosn){
 
     x = 1
     for(i=0;i<mortosbars.length;i++){
-        altura = window.innerHeight * 0.50;
+        altura = window.innerHeight * 0.12;
         h = (mortosbars[i]*altura)/pp
         w = ((window.innerWidth * 0.98)/mortosbars.length);
         barmortos(x,0,w,h);
@@ -105,7 +105,7 @@ function nb(doentesn, recuperadosn, mortosn){
     
     x = 1
     for(i=0;i<recuperadosbars.length;i++){
-        altura = window.innerHeight * 0.50;
+        altura = window.innerHeight * 0.12;
         h = (recuperadosbars[i]*altura)/pp
         w = ((window.innerWidth * 0.98)/recuperadosbars.length);
         y = (mortosbars[i]*altura)/pp
@@ -307,7 +307,7 @@ function jscript(){
     }
 
     while(n < pp){ 
-        var rai = 10;
+        var rai = 1;
         var x = randrange(rai, width - (rai));
         var y = randrange(rai, height - (rai));
         if(n != 0){
